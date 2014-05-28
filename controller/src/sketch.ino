@@ -1,173 +1,111 @@
+/* 戦車 コントローラー
+---デジタルピン---
+2:砲台右 Bt1 Btc1
+5:砲台左 Bt2 Btc2
+7:発射   Bt3 Btc3
+---アナログ---
+
+
+---メモ---
+ */
+
 //ボタンのピン番号
 #define Bt1 2
 #define Bt2 5
 #define Bt3 7
 
-#define L1 3
-#define L2 8
-#define L3 6
-
-
 //アナログのピン番号
-#define An1 1 
-#define An2 2
-#define An3 3
+#define RAn 1 
+#define LAn 2
+#define HAn 3
 
-#define L4 9
-#define L5 10
-#define L6 11
+//Button 1:砲台右 2:砲台左 3:発射
+int bt1 = 0,bt2 = 0,bt3 = 0;
+String Btc1 = "";
+String Btc2 = "";
+String Btc3 = "";
 
-//ループのカウント
-unsigned char Lcount = 0;
+//可変抵抗 R:右モーター L:左モーター H:砲台上下
+int Ra = 0,La = 0,Ha = 0;
+String rach = "";
+String lach = "";
+String hach = "";
 
-//unsigned char SendVal = 0;
-
-//An1  An2  An3  (Bt1  Bt2  Bt3)
-unsigned char Before[6] = { 255, 255, 255, 255, 255, 255 };
-unsigned char temp = 0;
-//int num = 0;
 
 void setup()
 {
   pinMode(Bt1, INPUT);
   pinMode(Bt2, INPUT);
   pinMode(Bt3, INPUT);
-  pinMode(L1, OUTPUT);
-  pinMode(L2, OUTPUT);
-  pinMode(L3, OUTPUT);
-  pinMode(L4, OUTPUT);
-  pinMode(L5, OUTPUT);
-  pinMode(L6, OUTPUT);
   Serial.begin(9600);
-
-
-  //Before[0] = analogRead(An1) / 16;
-  //Serial.write(Before[0] | 0x00);
-
-  //Before[1] = analogRead(An2) / 16;
-  //Serial.write(Before[1] | 0x40);
-
-  //Before[2] = analogRead(An3) / 16;
-  //Serial.write(Before[2] | 0x80);
-
-  //Before[3] = (digitalRead(Bt1) << 2) | (digitalRead(Bt2) << 1) | (digitalRead(Bt3));
-  //Serial.write(Before[3] | 0x80);
-
 }
-
-
-//判別	アナログ1
-//00	000000
-
-//判別	アナログ2
-//01	000000
-
-//判別	アナログ3
-//10	000000
-
-//判別	常に0	デジタル(上位から1,2,3)
-//11	000			000
 
 void loop()
 {
-  temp = analogRead(An1) / 16;
-  if (Before[0] != temp){
-	Before[0] = temp;
-	analogWrite(L4, analogRead(An1)/4);
-	//Serial.write(Before[0] | 0x00);
-	Serial.print("0\t");
-	Serial.println(Before[0]);
+  if(Ra != analogRead(RAn)){
+    Ra = analogRead(RAn);
+	rach = String(Ra,DEC);
+  }else{
+	rach = "x";
   }
 
-  temp = analogRead(An2) / 16;
-  if (Before[1] != temp){
-	analogWrite(L5, analogRead(An2) / 4);
-	Before[1] = temp;
-	//Serial.write(Before[1] | 0x40);
-	Serial.print("1\t");
-	Serial.println(Before[1]);
+  if(La != analogRead(LAn)){
+    La = analogRead(LAn);
+	lach = String(La,DEC);
+  }else{
+	lach = "x";
   }
 
-  temp = analogRead(An3) / 16;
-  if (Before[2] != temp){
-	analogWrite(L6, analogRead(An3) / 4);
-	Before[2] = temp;
-	//Serial.write(Before[2] | 0x80);
-	Serial.print("2\t");
-	Serial.println(Before[2]);
+  if(Ha != analogRead(HAn)){
+    Ha = analogRead(HAn);
+	hach = String(Ha,DEC);
+  }else{
+	hach = "x";
   }
 
-  //	temp = (digitalRead(Bt1) << 2) | (digitalRead(Bt2) << 1) | (digitalRead(Bt3));
-
-
-  temp = (digitalRead(Bt1));
-  if (Before[3] != temp){
-	Before[3] = temp;
-	digitalWrite(L1, temp);
-	//Serial.write(Before[3] | 0xC0);
-	Serial.print("3\t");
-	Serial.println(Before[3]);
+  if(bt1 != digitalRead(Bt1)){
+	bt1 = digitalRead(Bt1);
+	if(bt1 == 0){
+	  Btc1 = "0";
+	}else if(bt1 == 1){
+	  Btc1 = "1";
+	}
+  }else{
+	Btc1 = "x";
   }
 
-  temp = (digitalRead(Bt2));
-  if (Before[4] != temp){
-	digitalWrite(L2, temp);
-	Before[4] = temp;
-	//Serial.write(Before[3] | 0xC0);
-	Serial.print("4\t");
-	Serial.println(Before[4]);
+  if(bt2 != digitalRead(Bt1)){
+	bt2 = digitalRead(Bt1);
+	if(bt2 == 0){
+	  Btc2 = "0";
+	}else if(bt2 == 1){
+	  Btc2 = "1";
+	}
+  }else{
+	Btc2 = "x";
   }
 
-  temp = (digitalRead(Bt3));
-  if (Before[5] != temp){
-	digitalWrite(L3, temp);
-	Before[5] = temp;
-	//Serial.write(Before[3] | 0xC0);
-	Serial.print("5\t");
-	Serial.println(Before[5]);
+  if(bt3 != digitalRead(Bt1)){
+	bt3 = digitalRead(Bt1);
+	if(bt3 == 0){
+	  Btc3 = "0";
+	}else if(bt3 == 1){
+	  Btc3 = "1";
+	}
+  }else{
+	Btc3 = "x";
   }
 
-  //Serial.println(analogRead(An2));
-  //SendVal = 0;
-
-
-
-  //delay(10);
-  //switch (Lcount)
-  //{
-  //case 0:
-  //	num = analogRead(An1);
-  //	SendVal = (num) / 16;
-  //	SendVal |= 0x00;
-  //	Serial.write(SendVal);
-  //	break;
-  //case 1:
-  //	num = analogRead(An2);
-  //	SendVal = (num) / 16;
-  //	SendVal |= 0x40;
-  //	Serial.write(SendVal);
-  //	break;
-  //case 2:
-  //	num = analogRead(An3);
-  //	SendVal = (num) / 16;
-  //	SendVal |= 0x80;
-  //	Serial.write(SendVal);
-  //	break;
-  //case 3:
-  //	
-  //	SendVal |= digitalRead(Bt1) << 2;
-  //	SendVal |= digitalRead(Bt2) << 1;
-  //	SendVal |= digitalRead(Bt3);
-  //	
-  //	SendVal |= 0xC0;
-  //	Serial.write(SendVal);
-  //	break;
-
-  //default:
-  //	break;
-  //};
-  //Lcount++;
-  //if (Lcount == 4){
-  //	Lcount = 0;
-  //}
+  Serial.print("R:");
+  Serial.print(rach);
+  Serial.print("L:");
+  Serial.print(lach);
+  Serial.print("H:");
+  Serial.print(hach);
+  Serial.print("B1:");
+  Serial.print(Btc1);
+  Serial.print("B2:");
+  Serial.print(Btc2);
+  Serial.print("B3:");
+  Serial.println(Btc3);
 }
