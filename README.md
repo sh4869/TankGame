@@ -1,4 +1,5 @@
 #MicomTankS
+==============
 
 ##What is it?
 
@@ -8,6 +9,8 @@
 
 * controller
 * tank
+
+---------
 
 ##戦車概要
 
