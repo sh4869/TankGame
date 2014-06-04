@@ -1,4 +1,5 @@
-/* Arduinoで戦車を動かすためのプログラム
+/*
+Arduinoで戦車を動かすためのプログラム
 author:4869 */
 
 #include<Servo.h>
