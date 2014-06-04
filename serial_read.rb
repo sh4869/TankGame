@@ -33,10 +33,10 @@ loop do
   b3 = $' #発射ボタン
   #--------------------------------------------#
   sp2.write('R')
-  sp2.write(lm)
+  sp2.write(rm)
   sp2.write('-')
   sp2.write('L')
-  sp2.write(hm)
+  sp2.write(lm)
   sp2.write('-')
   sp2.write('H')
   sp2.write(hm)
