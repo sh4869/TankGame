@@ -1,5 +1,5 @@
 /*
-Arduinoで戦車を動かすためのプログラム
+   Arduinoで戦車を動かすためのプログラム
 author:4869 */
 
 #include<Servo.h>
@@ -108,46 +108,37 @@ void Left_stop(void){
 //砲台の上下に関する関数
 
 
-/*メイン関数
-  (実際行う処理を書く関数。この関数はループするので終わることはない)*/
 
 void loop(){
-  //シリアルを受信している間
   while(Serial.available()){
-	//シリアルの文字列をchに代入する
 	ch = Serial.read();
-	//chの文字によって処理を変える
 	switch(ch){
-	  case 's':{ //送られてきた文字がsの場合
-				 //左右のモーターをどちらもストップさせる→止める
-				 Right_stop();
-				 Left_stop();
-				 break; //これがないとそのまま下の処理に行ってしまう
+	  //Car Right Moter
+	  case 'R':{
+				 do {
+
+				 }while(ch != '-'); 
+				 break;
 			   }  
-	  case 'g':{ //gの場合
-				 //左右のモーターをどちらも進める→前に進める
-				 Right_go();
-				 Left_go();
+			   //Car Left Moter
+	  case 'L':{ 
+				 do{
+				 }while(ch != '-');
 				 break;
 			   } 
-	  case 'b':{ //bの場合
-				 //左右どちらのモーターも後ろに進める→バックさせる
-				 Right_back();
-				 Left_back();
+			   //Car battery's servo moter
+	  case 'H':{ 
+				 do{
+				 }while(ch != '-');
 				 break;
 			   }
-	  case 'r':{
-				 Turn_Right();
+			   //B1:Battery right moter B2:Battery left Moter B3:Firing
+	  case 'B':{
+				 ch = Serial.read();
+				 ch = Serial.read();
+				 ch = Serial.read();
 				 break;
 			   }
-	  case 'l':{
-				 Turn_Left();
-				 break;
-			   }
-	  case 'n':{
-				 Turn_Stop();
-				 break;
-			   }
-	}  
+	}
   }
 }
