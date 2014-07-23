@@ -66,98 +66,92 @@ void Turn_Stop(void){
 
 //右側モーターに関する関数
 //右のモーターを前に回転させる
-void Right_go(void){
-  digitalWrite(Right_A,HIGH);
-  digitalWrite(Right_B,LOW);
-  analogWrite(Right_PWM,MAX); 
-}  
-
-//右のモーターを後ろに回転させる
-void Right_back(void){
-  digitalWrite(Right_A,LOW);
-  digitalWrite(Right_B,HIGH);
-  analogWrite(Right_PWM,MAX);
+void Right_go(String val){
+  if(val != "x"){
+	int vali = atoi(val);
+	if(vali == 5){
+	  digitalWrite(Right_A,LOW);
+	  digitalWrite(Right_B,LOW);
+	}else(vali > 5){
+	  digitalWrite(Right_A,HIGH);
+	  digitalWrite(Right_B,LOW);
+	  analogWrite(Right_PWM,NOM + ((vali - 5) * 10)); 
+	}else{  
+	  digitalWrite(Right_A,LOW);
+	  digitalWrite(Right_B,HIGH);
+	  analogWrite(Right_PWM,NOM + (-(vali - 6) * 10));
+	}
+  }
 }
-
-//右のモーターを止める
-void Right_stop(void){ 
-  digitalWrite(Right_A,LOW);
-  digitalWrite(Right_B,LOW);
+  //左側のモーターに関する関数
+void Left_go(String val){
+  if(val != "x"){
+	int vali = atoi(val);
+	if(vali == 5){
+	digitalWrite(Left_A,LOW);
+	digitalWrite(Left_B,LOW);
+	}else(vali > 5){
+	digitalWrite(Left_A,HIGH);
+	digitalWrite(Left_B,LOW);
+	analogWrite(Left_PWM,NOM + ((vali - 5) * 10));
+    }else{
+	digitalWrite(Left_A,LOW);
+	digitalWrite(Left_B,HIGH);
+	analogWrite(Left_PWM,NOM + (-(vali - 6) * 10));
+	}
+  }
 }
-
-//左側のモーターに関する関数
-//左のモーターを前に回転させる
-void Left_go(void){
-  digitalWrite(Left_A,HIGH);
-  digitalWrite(Left_B,LOW);
-  analogWrite(Left_PWM,MAX);
-}
-
-//左のモーターを後ろに回転させる
-void Left_back(void){
-  digitalWrite(Left_A,LOW);
-  digitalWrite(Left_B,HIGH);
-  analogWrite(Left_PWM,MAX);
-}
-
-//左のモーターを止める
-void Left_stop(void){
-  digitalWrite(Left_A,LOW);
-  digitalWrite(Left_B,LOW);
-}
-
-//砲台の上下に関する関数
+  //砲台の上下に関する関数
 
 
 
-void loop(){
-  while(Serial.available()){
-	ch = Serial.read();
-	switch(ch){
-	  //Car Right Moter
-	  case 'R':{
-				 do {
+  void loop(){
+	while(Serial.available()){
+	  ch = Serial.read();
+	  switch(ch){
+		//Car Right Moter
+		case 'R':{
+				   ch = Serial.read();
 
-				 }while(ch != '-'); 
-				 break;
-			   }  
-			   //Car Left Moter
-	  case 'L':{ 
-				 do{
-				 }while(ch != '-');
-				 break;
-			   } 
-			   //Car battery's servo moter
-	  case 'H':{ 
-				 do{
-				 }while(ch != '-');
-				 break;
-			   }
-			   //B1:Battery right moter B2:Battery left Moter B3:Firing
-	  case 'B':{
-				 ch = Serial.read();
-				 if(ch == "1"){
-				   Turn_Right();
-				   r = 1;
-				 }else{
-				   r = 0;
+				   break;
+				 }  
+				 //Car Left Moter
+		case 'L':{ 
+				   ch = Serial.read();
+				   break;
+				 } 
+				 //Car battery's servo moter
+		case 'H':{ 
+				   ch = Serial.read();
+
+				   break;
 				 }
-				 ch = Serial.read();
-				 if(ch == "1"){
-				   Turn_Lefti();
-				   l = 1;
-				 }else{
-				   l = 0;
-				 }
-				 if(r == 0 && l == 0){
-				   Turn_Stop();
-				 }
-				 ch = Serial.read();
-				 if(ch == "1"){
+				 //B1:Battery right moter B2:Battery left Moter B3:Firing
+		case 'B':{
+				   ch = Serial.read();
+				   if(ch == "1"){
+					 Turn_Right();
+					 r = 1;
+				   }else{
+					 r = 0;
+				   }
+				   ch = Serial.read();
+				   if(ch == "1"){
+					 Turn_Lefti();
+					 l = 1;
+				   }else{
+					 l = 0;
+				   }
+				   if(r == 0 && l == 0){
+					 Turn_Stop();
+				   }
+				   ch = Serial.read();
+				   if(ch == "1"){
 
+				   }
+				   break;
 				 }
-				 break;
-			   }
+	  }
 	}
   }
 }
