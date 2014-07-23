@@ -3,12 +3,20 @@ require 'rubygems'
 require 'serialport'
 
 @serial_port_1 = "/dev/ttyACM0"
-@serial_port_2 = "/dev/ttyACM1"
+#@serial_port_2 = "/dev/ttyACM1"
 @serial_bps = 9600
 
 
 sp = SerialPort.new(@serial_port_1,@serial_bps)
-sp2 = SerialPort.new(@serial_port_2,@serial_bps)
+#sp2 = SerialPort.new(@serial_port_2,@serial_bps)
+
+def adjust(num)
+  if num != "x"
+	val = num.to_i
+	val = (val / 102).ceil
+  end
+  return val
+end
 
 loop do
   read =  sp.read
@@ -32,19 +40,30 @@ loop do
   b2 = $` #砲台回転左
   b3 = $' #発射ボタン
   #--------------------------------------------#
-  sp2.write('R')
-  sp2.write(rm)
-  sp2.write('-')
-  sp2.write('L')
-  sp2.write(lm)
-  sp2.write('-')
-  sp2.write('H')
-  sp2.write(hm)
-  sp2.write('-')
-  sp2.write('B')
-  sp2.write(b1)
-  sp2.write(b2)  
-  sp2.write(b3)
+  #sp2.write('R')
+  #sp2.write(adjust(rm))
+  #sp2.write('-')
+  #sp2.write('L')
+  #sp2.write(adjust(lm))
+  #sp2.write('-')
+  #sp2.write('H')
+  #sp2.write(adjust(hm))
+  #sp2.write('-')
+  #sp2.write('B')
+  #sp2.write(b1)
+  #sp2.write(b2)  
+  #sp2.write(b3)
+  
+  puts 'R'
+  puts adjust(rm)
+  puts 'L'
+  puts adjust(lm)
+  puts 'H'
+  puts adjust(hm)
+  puts 'B'
+  puts b1
+  puts b2
+  puts b3
   puts "================="
   sleep(1)
 end

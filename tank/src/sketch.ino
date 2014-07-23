@@ -22,6 +22,7 @@ const int Left_PWM = 11;
 const int Left_A = 12;
 const int Left_B = 13;
 
+int r,l;
 //砲台の上下
 Servo myservo;
 
@@ -135,8 +136,26 @@ void loop(){
 			   //B1:Battery right moter B2:Battery left Moter B3:Firing
 	  case 'B':{
 				 ch = Serial.read();
+				 if(ch == "1"){
+				   Turn_Right();
+				   r = 1;
+				 }else{
+				   r = 0;
+				 }
 				 ch = Serial.read();
+				 if(ch == "1"){
+				   Turn_Lefti();
+				   l = 1;
+				 }else{
+				   l = 0;
+				 }
+				 if(r == 0 && l == 0){
+				   Turn_Stop();
+				 }
 				 ch = Serial.read();
+				 if(ch == "1"){
+
+				 }
 				 break;
 			   }
 	}
