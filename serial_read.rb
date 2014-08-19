@@ -55,11 +55,11 @@ loop do
   #sp2.write(b3)
   
   puts 'R'
-  puts adjust(rm)
+  puts rm
   puts 'L'
-  puts adjust(lm)
+  puts lm
   puts 'H'
-  puts adjust(hm)
+  puts hm
   puts 'B'
   puts b1
   puts b2

@@ -9,7 +9,7 @@
 3:砲台上下のサーボ
 ---メモ---
  */
-
+#include <Debounce.h>
 //ボタンのピン番号
 #define Bt1 2
 #define Bt2 5
