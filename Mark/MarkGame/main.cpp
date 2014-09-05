@@ -1,10 +1,14 @@
-#include<QtWidgets>
-#include "gamewindow.h"
+
+#include "window.h"
+
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
-  QApplication app(argc,argv);
-  GameWindow gamewindow;
-  gamewindow.show(); 
-  return app.exec();
+    Q_INIT_RESOURCE(basicdrawing);
+
+    QApplication app(argc, argv);
+    Window window;
+    window.show();
+    return app.exec();
 }
