@@ -12,6 +12,9 @@ class GameArea : public QWidget{
 
 	QSize minimumSizeHint() const;
 	QSize sizeHint() const;
+  
+  protected:
+	void paintEvent(QPaintEvent *event);
 };
 
 #endif
