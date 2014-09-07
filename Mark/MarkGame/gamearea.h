@@ -15,6 +15,8 @@ class GameArea : public QWidget{
   
   protected:
 	void paintEvent(QPaintEvent *event);
+  private:
+	QPixmap pixmap;
 };
 
 #endif
