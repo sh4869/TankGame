@@ -4,17 +4,17 @@
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
-class QLabel;
 QT_END_NAMESPACE
+class GameArea;
 
 class Window : public QWidget{
   Q_OBJECT
 
-public:
+  public:
 	Window();
 
-private:
-	QLabel *testLabel;
+  private:
+    GameArea *gameArea;
 };
 
 #endif 

@@ -1,13 +1,14 @@
+#include "gamearea.h"
 #include "window.h"
 
 #include <QtWidgets>
 
 Window::Window()
  {
-   testLabel = new QLabel(tr("Test"));
-   
+   gameArea = new GameArea;
+
    QGridLayout *mainLayout = new QGridLayout;
 
-   mainLayout->addWidget(testLabel,0,0);
+   mainLayout->addWidget(gameArea,0,0,1,4);
    setLayout(mainLayout);
  }
