@@ -1,11 +1,16 @@
 #include "gamearea.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
+
 
 #include <QPainter>
 
 GameArea::GameArea(QWidget *parent) : QWidget(parent)
 {
+  QTimer *reload = new QTimer();
+  connect(reload,SIGNAL(timeout()),SLOT(reloadAnimation()));
+  reload->start(1*2000);
   pixmap.load(":/images/kan.png");
   setBackgroundRole(QPalette::Base);
   setAutoFillBackground(true);
@@ -18,7 +23,11 @@ QSize GameArea::minimumSizeHint() const
 
 QSize GameArea::sizeHint() const
 {
-  return QSize(1000,600);
+  return QSize(700,600);
+}
+void GameArea::reloadAnimation(){
+  printf("update\n");
+  update();
 }
 
 void GameArea::paintEvent(QPaintEvent *event)
@@ -37,3 +46,4 @@ void GameArea::paintEvent(QPaintEvent *event)
   QPainter painter(this);
   painter.drawPixmap(points[rand()%6],pixmap);
 }
+

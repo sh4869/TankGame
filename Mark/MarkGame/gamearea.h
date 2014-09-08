@@ -3,6 +3,7 @@
 
 #include <QPixmap>
 #include <QWidget>
+#include <QTimer>
 
 class GameArea : public QWidget{
   Q_OBJECT
@@ -12,6 +13,8 @@ class GameArea : public QWidget{
 
 	QSize minimumSizeHint() const;
 	QSize sizeHint() const;
+  public slots:
+	void reloadAnimation();
   
   protected:
 	void paintEvent(QPaintEvent *event);
