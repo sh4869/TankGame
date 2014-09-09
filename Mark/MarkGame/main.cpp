@@ -1,12 +1,12 @@
-#include "window.h"
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
-#include <QApplication>
+int main(int argc, char *argv[])
+{
+    QGuiApplication app(argc, argv);
 
-int main(int argc,char *argv[]){
-  Q_INIT_RESOURCE(markgame);
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
 
-  QApplication app(argc,argv);
-  Window window;
-  window.show();
-  return app.exec();
+    return app.exec();
 }
