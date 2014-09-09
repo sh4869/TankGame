@@ -19,7 +19,10 @@ class GameArea : public QWidget{
   protected:
 	void paintEvent(QPaintEvent *event);
   private:
-	QPixmap pixmap;
+	QPixmap kan;
+	QPixmap taoreta;
+	QPointF points[6];
+	int pointnum;
 };
 
 #endif
