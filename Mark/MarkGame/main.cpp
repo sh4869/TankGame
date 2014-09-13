@@ -1,12 +1,12 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
+#include "gamearea.h"
 
-int main(int argc, char *argv[])
-{
-    QGuiApplication app(argc, argv);
+#include <QApplication>
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+int main(int argc,char *argv[]){
+  Q_INIT_RESOURCE(markgame);
 
-    return app.exec();
+  QApplication app(argc,argv);
+  GameArea gamearea;
+  gamearea.show();
+  return app.exec();
 }
