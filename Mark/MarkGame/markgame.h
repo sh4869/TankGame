@@ -4,22 +4,29 @@
 #include <QPixmap>
 #include <QWidget>
 #include <QTimer>
+#include <QLayout>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+#include <QPropertyAnimation>
+#include "markgamePrivate.h"
 
-class GameArea : public QWidget{
+
+class MarkGame : public QWidget{
   Q_OBJECT
+  Q_DECLARE_PRIVATE(MarkGame)
 
   public:
-	GameArea(QWidget *parent = 0);
+	MarkGame();
+	QGraphicsScene *graphicsScene;
+	QGraphicsTextItem *pointtext;
+	QGraphicsTextItem *timecount;
+	QTimer *timer;
+	QFont font;
 
-	QSize minimumSizeHint() const;
-	QSize sizeHint() const;
-	public slots:
-	  void reloadAnimation();
-
-  protected:
-	void paintEvent(QPaintEvent *event);
   private:
 	QPixmap pixmap;
+	MarkGamePrivate* d_ptr;
 };
 
 #endif

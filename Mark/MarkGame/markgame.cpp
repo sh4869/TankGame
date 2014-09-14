@@ -6,44 +6,32 @@
 
 #include <QPainter>
 
-GameArea::GameArea(QWidget *parent) : QWidget(parent)
+MarkGame::MarkGame() : QWidget(0),d_ptr(new MarkGamePrivate)
 {
-  QTimer *reload = new QTimer();
-  connect(reload,SIGNAL(timeout()),SLOT(reloadAnimation()));
-  reload->start(1*2000);
-  pixmap.load(":/images/kan.png");
-  setBackgroundRole(QPalette::Base);
-  setAutoFillBackground(true);
-}
+  Q_D(MarkGame);
+  graphicsScene = new QGraphicsScene(0,0,d->movingAreaSize.width(),d->movingAreaSize.height());
 
-QSize GameArea::minimumSizeHint() const
-{
-  return QSize(100,100);
-}
-
-QSize GameArea::sizeHint() const
-{
-  return QSize(700,600);
-}
-void GameArea::reloadAnimation(){
-  printf("update\n");
-  update();
-}
-
-void GameArea::paintEvent(QPaintEvent *event)
-{
-  static const QPointF points[6] = {
-	QPointF(10,10),
-	QPointF(200,10),
-	QPointF(400,10),
-	QPointF(10,300),
-	QPointF(200,300),
-	QPointF(400,300)
-  };
-
-  srand((unsigned)time(NULL));
-
-  QPainter painter(this);
-  painter.drawPixmap(points[rand()%6],pixmap);
+  // Point text
+  pointtext = new QGraphicsTextItem();
+  font = pointtext->font();
+  font.setPointSize(72);
+  font.setBold(true);
+  pointtext->setPos(100,50);
+  pointtext->setPlainText("Hello");
+  pointtext->setDefaultTextColor(Qt::red);
+  pointtext->setFont(font);
+  timecount = new QGraphicsTextItem();
+  timecount->setPos(700,50);
+  timecount->setPlainText("Time");
+  timecount->setDefaultTextColor(Qt::green);
+  timecount->setFont(font);
+  graphicsScene->addItem(pointtext);
+  graphicsScene->addItem(timecount);
+  
+  QGraphicsView* view = new QGraphicsView();
+  view->setScene(graphicsScene);
+  QVBoxLayout* layout = new QVBoxLayout;
+  layout->addWidget(view);
+  setLayout(layout);
 }
 

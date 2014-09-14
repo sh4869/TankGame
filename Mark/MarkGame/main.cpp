@@ -6,7 +6,7 @@ int main(int argc,char *argv[]){
   Q_INIT_RESOURCE(markgame);
 
   QApplication app(argc,argv);
-  GameArea gamearea;
-  gamearea.show();
+  MarkGame *markgame = new MarkGame();
+  markgame->show();
   return app.exec();
 }
