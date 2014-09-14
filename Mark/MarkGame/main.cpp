@@ -1,4 +1,4 @@
-#include "gamearea.h"
+#include "markgame.h"
 
 #include <QApplication>
 

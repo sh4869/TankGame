@@ -1,4 +1,4 @@
-#include "gamearea.h"
+#include "markgame.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>

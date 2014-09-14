@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-  <file>images/kan.png</file>
-</qresource>
+  <qresource>
+	<file>images/kan.png</file>
+  </qresource>
 </RCC>
+
