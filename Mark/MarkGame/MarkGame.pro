@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = MarkGame
 INCLUDEPATH += .
 
-QT += widgets
+QT += widgets gui
 
 # Input
 HEADERS += markgame.h

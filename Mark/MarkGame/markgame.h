@@ -9,7 +9,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPropertyAnimation>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "markgamePrivate.h"
+#define TIME 60
 
 
 class MarkGame : public QWidget{
@@ -18,15 +22,29 @@ class MarkGame : public QWidget{
 
   public:
 	MarkGame();
+    void gamefinish();
 	QGraphicsScene *graphicsScene;
-	QGraphicsTextItem *pointtext;
+	QGraphicsPixmapItem **imageItem;
 	QGraphicsTextItem *timecount;
+	QPixmap *imagedata;
+	QPointF *point;
 	QTimer *timer;
 	QFont font;
 
   private:
 	QPixmap pixmap;
 	MarkGamePrivate* d_ptr;
+    
+	char leavetimemoji[3];
+    int i;
+	int leavetime,leavetimecpy;
+
+
+  private slots:
+	void updatetime();
+  signals:
+    void quit();
+
 };
 
 #endif
