@@ -4,8 +4,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    markgame w;
-    w.show();
+    Markgame *markgame = new Markgame();
+    markgame->show();
 
     return a.exec();
 }

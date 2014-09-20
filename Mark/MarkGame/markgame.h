@@ -1,15 +1,65 @@
 #ifndef MARKGAME_H
 #define MARKGAME_H
 
-#include <QMainWindow>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+#include <QPropertyAnimation>
+#include <QLayout>
+#include <QPushButton>
+#include <QWidget>
+#include <QTimer>
+#include <QThread>
+#include <QtGui>
+#include <QMediaPlayer>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "MovableGraphicsPixmapItem.h"
+#include "MarkgamePrivate.h"
+#define JUN 6
+#define TIME 30
 
-class markgame : public QMainWindow
+class Markgame : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
+  Q_DECLARE_PRIVATE(Markgame)
 
 public:
-    markgame(QWidget *parent = 0);
-    ~markgame();
+  Markgame();
+  ~Markgame();
+  void gamefinish();
+  QPropertyAnimation* createImageAnimation(MovableGraphicsPixmapItem* item,int duration,QPointF ImagePoint);
+  MovableGraphicsPixmapItem* createImageItem(const QString& pixmapFileName);
+  QGraphicsScene *graphicsScene;
+  MovableGraphicsPixmapItem **ImageItem;
+  QPointF B[JUN+1];
+  QPropertyAnimation** ImageAnimation;
+  QGraphicsTextItem *pointtext;
+  QGraphicsTextItem *timecount;
+  QTimer *timer;
+  QTimer *waittime;
+  QFont font;
+  QMediaPlayer *player;
+
+protected:
+   void keyPressEvent(QKeyEvent *);
+
+private:
+  MarkgamePrivate* d_ptr;
+  int I[JUN+1],ch[JUN+1],pointsu[100];
+  int i,loop,leavetime,point_amount;
+  FILE *fp;
+  char pointloc[5],pointlocpre[5],pointmoji[100];
+  char leavetimemoji[3];
+
+private slots:
+  void startAnimation();
+  void updatetime();
+  void hitBall();
+signals:
+  void quit();
+  void updateuserpoint(int user_point_amount);
 };
 
 #endif // MARKGAME_H

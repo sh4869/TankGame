@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,4 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         markgame.cpp
 
-HEADERS  += markgame.h
+HEADERS  += markgame.h \
+    score.h \
+    MovableGraphicsPixmapItem.h \
+    MarkgamePrivate.h
