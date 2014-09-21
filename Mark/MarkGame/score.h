@@ -15,6 +15,7 @@ int keta(int num){
   return keta;
 }
 
+// return 10*x number
 int jou(int num){
   int k=1,i;
   for(i=0;i<num;i++){

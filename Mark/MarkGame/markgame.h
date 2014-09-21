@@ -41,6 +41,7 @@ public:
   QTimer *waittime;
   QFont font;
   QMediaPlayer *player;
+  QString strscore;
 
 protected:
    void keyPressEvent(QKeyEvent *);
@@ -48,15 +49,17 @@ protected:
 private:
   MarkgamePrivate* d_ptr;
   int I[JUN+1],ch[JUN+1],pointsu[100];
-  int i,loop,leavetime,point_amount;
+  int i,loop,leavetime,point_amount,score;
   FILE *fp;
   char pointloc[5],pointlocpre[5],pointmoji[100];
   char leavetimemoji[3];
+  //QString *strscore;
 
 private slots:
   void startAnimation();
   void updatetime();
-  void hitBall();
+  void hitBall(int marknum);
+  void scoreCalcution(int number);
 signals:
   void quit();
   void updateuserpoint(int user_point_amount);

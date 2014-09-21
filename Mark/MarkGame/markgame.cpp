@@ -27,7 +27,7 @@ Markgame::Markgame()
   ImageItem[4] = createImageItem(":/picture/5.jpg");
   ImageItem[5] = createImageItem(":/picture/6.jpg");
 
-  pointtext=new QGraphicsTextItem();
+  pointtext = new QGraphicsTextItem();
   font = pointtext->font();
   font.setPointSize(72);
   font.setBold(true);
@@ -35,11 +35,13 @@ Markgame::Markgame()
   pointtext->setPlainText("Hello");
   pointtext->setDefaultTextColor(Qt::red);
   pointtext->setFont(font);
+
   timecount = new QGraphicsTextItem();
   timecount->setPos(700,50);
   timecount->setPlainText("Time");
   timecount->setDefaultTextColor(Qt::green);
   timecount->setFont(font);
+
   graphicsScene->addItem(pointtext);
   graphicsScene->addItem(timecount);
 
@@ -68,9 +70,10 @@ Markgame::Markgame()
   timer->start(1*1000);
 
   i=0;
+  score = 0;
   leavetime=TIME;
   for(loop=0;loop<JUN;loop++) I[loop]=0;
-
+  for(loop=1;loop<JUN+1;loop++) ch[loop] =loop;
 }
 
 Markgame::~Markgame()
@@ -93,20 +96,48 @@ void Markgame::gamefinish()
   fprintf(stderr,"gamefinish\n");
 }
 
-void Markgame::hitBall(){
+void Markgame::hitBall(int marknum){
+    scoreCalcution(marknum);
     player = new QMediaPlayer;
     player->setMedia(QUrl::fromLocalFile("/home/sh4869/Documents/MicomClub/micomtanks/Mark/MarkGame/material/bakuhatu.wav"));
     player->setVolume(50);
     player->play();
-    waittime = new QTimer(this);
-    QObject::connect(waittime,SIGNAL(timeout()),SLOT(startAnimation()));
-    waittime->start(2*1000);
+    startAnimation();
 }
 
+void Markgame::scoreCalcution(int number){
+    switch(ch[number]){
+        case 1:
+            score += 100;
+            break;
+        case 2:
+            score += 200;
+            break;
+        case 3:
+            score += 300;
+            break;
+        case 4:
+            score += 400;
+            break;
+        case 5:
+            score -= 300;
+            break;
+        case 6:
+            score -= 500;
+            break;
+        default:
+            break;
+
+     }
+    fprintf(stderr,"%d\n",score);
+    strscore = QString::number(score);
+    pointtext->setPlainText(strscore);
+}
 
 void Markgame::startAnimation()
 {
   Q_D(Markgame);
+  //waittime->stop();
   int ranp,j,pre,pointpre,pointchpre,ketasu;
   srand((unsigned) time(NULL));
 
@@ -115,6 +146,7 @@ void Markgame::startAnimation()
     if(I[loop]==0) I[loop]=1;
   }
 
+  // Create Rundom Six Figures for Place
   ranp = SixRandPos(rand()%720);
   pre = ranp;
   for(j=0;j<JUN;j++){
@@ -123,6 +155,7 @@ void Markgame::startAnimation()
     fprintf(stderr,"%d",ch[j]+1);
   }
   fprintf(stderr,"\n");
+
   for(loop=0;loop<JUN;loop++){
     ImageAnimation[ch[loop]]->setEndValue(B[loop]);
   }
@@ -169,24 +202,25 @@ QPropertyAnimation* Markgame::createImageAnimation( MovableGraphicsPixmapItem* i
 }
 void Markgame::keyPressEvent(QKeyEvent *event)
 {
+    fprintf(stderr,"press key\n");
     switch (event->key())  {
         case Qt::Key_1:
-            hitBall();
+            hitBall(1);
             break;
         case Qt::Key_2:
-            startAnimation();
+            hitBall(2);
             break;
         case Qt::Key_3:
-            startAnimation();
+            hitBall(3);
             break;
         case Qt::Key_4:
-            startAnimation();
+            hitBall(4);
             break;
         case Qt::Key_5:
-            startAnimation();
+            hitBall(5);
             break;
         case Qt::Key_6:
-            startAnimation();
+            hitBall(6);
             break;
         default:
             break;
