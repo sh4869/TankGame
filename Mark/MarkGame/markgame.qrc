@@ -1,1 +1,9 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>material/kanking.png</file>
+        <file>material/kandokuro.png</file>
+        <file>material/kangazou.png</file>
+        <file>material/kansilver.png</file>
+        <file>material/bakuhatu.wav</file>
+    </qresource>
+</RCC>
