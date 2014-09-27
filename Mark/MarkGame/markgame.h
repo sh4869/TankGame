@@ -37,8 +37,12 @@ public:
   QPropertyAnimation** ImageAnimation;
   QGraphicsTextItem *pointtext;
   QGraphicsTextItem *timecount;
+  QGraphicsTextItem *tellfinish;
+  QGraphicsTextItem *starttext;
   QTimer *timer;
+  QTimer *starttimer;
   QTimer *waittime;
+  QTimer *deletetimer;
   QFont font;
   QMediaPlayer *player;
   QString strscore;
@@ -60,6 +64,11 @@ private slots:
   void updatetime();
   void hitBall(int marknum);
   void scoreCalcution(int number);
+  void newgame();
+  void startgame();
+  void startTime();
+  void removetext();
+
 signals:
   void quit();
   void updateuserpoint(int user_point_amount);

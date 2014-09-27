@@ -14,13 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         markgame.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    menu.cpp
 
 HEADERS  += markgame.h \
     score.h \
     MovableGraphicsPixmapItem.h \
     MarkgamePrivate.h \
-    mainwindow.h
+    mainwindow.h \
+    menu.h
 
 RESOURCES += \
     markgame.qrc
