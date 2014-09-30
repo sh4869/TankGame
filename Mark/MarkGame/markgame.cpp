@@ -38,7 +38,7 @@ Markgame::Markgame()
 
   timecount = new QGraphicsTextItem();
   timecount->setPos(700,50);
-  timecount->setPlainText("Time");
+  timecount->setPlainText("30");
   timecount->setDefaultTextColor(Qt::green);
   timecount->setFont(font);
 
@@ -67,8 +67,8 @@ Markgame::Markgame()
 
   timer = new QTimer(this);
   QObject::connect(timer,SIGNAL(timeout()),SLOT(updatetime()));
-  timer->start(1*1000);
-
+ // timer->start(1*1000);
+  startgame();
   i=0;
   score = 0;
   leavetime=TIME;
@@ -80,11 +80,39 @@ Markgame::~Markgame()
 {
   delete d_ptr;
 }
+void Markgame::startgame(){
+    starttext = new QGraphicsTextItem();
+    font = starttext->font();
+    font.setPointSize(150);
+    font.setBold(true);
+    starttext->setPos(300,300);
+    starttext->setPlainText("Ready?");
+    starttext->setDefaultTextColor(Qt::blue);
+    starttext->setFont(font);
+    graphicsScene->addItem(starttext);
+    starttimer = new QTimer;
+    QObject::connect(starttimer,SIGNAL(timeout()),SLOT(startTime()));
+    starttimer->start(3*1000);
+}
+
+void Markgame::startTime(){
+    starttimer->stop();
+    starttext->setPlainText("Go!");
+    timer->start(1*1000);
+    deletetimer = new QTimer;
+    QObject::connect(deletetimer,SIGNAL(timeout()),SLOT(removetext()));
+    deletetimer->start(1*500);
+}
+
+void Markgame::removetext(){
+    graphicsScene->removeItem(starttext);
+    deletetimer->stop();
+}
 
 void Markgame::gamefinish()
 {
   timer->stop();
-  QGraphicsTextItem *tellfinish = new QGraphicsTextItem();
+  tellfinish = new QGraphicsTextItem();
   font = pointtext->font();
   font.setPointSize(100);
   font.setBold(true);
@@ -184,6 +212,16 @@ void Markgame::updatetime(){
 
 }
 
+void Markgame::gameRestart(){
+    timer->stop();
+    leavetime=TIME;
+    score=0;
+    timecount->setPlainText("30");
+    pointtext->setPlainText("0");
+    graphicsScene->removeItem(tellfinish);
+    startgame();
+}
+
 MovableGraphicsPixmapItem* Markgame::createImageItem(const QString& pixmapFileName)
 {
   MovableGraphicsPixmapItem* item = new MovableGraphicsPixmapItem(QPixmap(pixmapFileName));
@@ -218,6 +256,9 @@ void Markgame::keyPressEvent(QKeyEvent *event)
             break;
         case 54:
             hitBall(6);
+            break;
+        case Qt::Key_Escape:
+            gameRestart();
             break;
         default:
             break;

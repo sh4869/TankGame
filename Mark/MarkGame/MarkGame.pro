@@ -5,6 +5,7 @@
 QT += widgets gui core multimedia
 
 TEMPLATE = app
+<<<<<<< HEAD
 TARGET = MarkGame
 INCLUDEPATH += .
 
@@ -16,3 +17,25 @@ HEADERS += mainwindow.h \
            score.h
 SOURCES += main.cpp mainwindow.cpp markgame.cpp
 RESOURCES += markgame.qrc
+=======
+
+
+SOURCES += main.cpp\
+        markgame.cpp \
+    mainwindow.cpp \
+    menu.cpp \
+    scorewindow.cpp
+
+HEADERS  += markgame.h \
+    score.h \
+    MovableGraphicsPixmapItem.h \
+    MarkgamePrivate.h \
+    mainwindow.h \
+    menu.h \
+    scorewindow.h
+
+RESOURCES += \
+    markgame.qrc
+
+OTHER_FILES +=
+>>>>>>> 8eb6818f3a1acce57370279ca70987d9920b8149

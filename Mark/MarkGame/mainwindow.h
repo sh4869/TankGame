@@ -9,6 +9,9 @@ class mainwindow : public QMainWindow
 {
 public:
     mainwindow();
+    //setMenu();
+    //setGame();
+
 };
 
 #endif // MAINWINDOW_H
