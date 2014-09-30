@@ -3,12 +3,15 @@
 
 #include <QtWidgets>
 #include <QtGui>
+#include <QGraphicsView>
 
 class Menu : public QWidget
 {
 public:
     Menu();
-    QLineEdit *input;
+    QGraphicsScene *scene;
+    QGraphicsTextItem *inputID;
+
     QSize sizeHint() const;
 
 

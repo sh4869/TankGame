@@ -64,7 +64,7 @@ private slots:
   void updatetime();
   void hitBall(int marknum);
   void scoreCalcution(int number);
-  void newgame();
+  void gameRestart();
   void startgame();
   void startTime();
   void removetext();

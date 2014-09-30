@@ -212,7 +212,7 @@ void Markgame::updatetime(){
 
 }
 
-void Markgame::newgame(){
+void Markgame::gameRestart(){
     timer->stop();
     leavetime=TIME;
     score=0;
@@ -258,7 +258,7 @@ void Markgame::keyPressEvent(QKeyEvent *event)
             hitBall(6);
             break;
         case Qt::Key_Escape:
-            newgame();
+            gameRestart();
             break;
         default:
             break;
