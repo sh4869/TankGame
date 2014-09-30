@@ -7,6 +7,8 @@
 
 class ScoreWindow : public QWidget
 {
+    Q_OBJECT
+
 public:
     ScoreWindow();
     QGraphicsScene *scoreScene;
@@ -15,10 +17,22 @@ public:
     QGraphicsTextItem *topScore;
     QFont scorefont;
     QFont topfont;
+    QFont userIDfont;
+
+    QTimer *topDeleteTime;
+
+    //Create update Top widget
+    QGraphicsPixmapItem *topImage;
+
     int topnum;
+
+public slots:
+    void deleteTopImage();
     void changeScore(int score,int id);
-protected:
     void updateTop();
+
+protected:
+
 };
 
 #endif // SCOREWINDOW_H
