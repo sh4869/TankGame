@@ -1,7 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-class mainwindow
+#include <QApplication>
+#include <QMainWindow>
+#include <QtDeclarative/QtDeclarative>
+
+class mainwindow : public QMainWindow
 {
 public:
     mainwindow();

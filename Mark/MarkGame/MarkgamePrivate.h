@@ -4,8 +4,8 @@
 class MarkgamePrivate
 {
 public:
-  MarkgamePrivate()
-    :movingAreaSize(QSize(1580,856)),horizontalOffset(8){
+  MarkgamePrivate()//1024 768//1580 856
+    :movingAreaSize(QSize(1024,768)),horizontalOffset(8){
   }
 
   QSize movingAreaSize;
