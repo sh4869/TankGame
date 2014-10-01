@@ -5,7 +5,7 @@
 #include <QKeyEvent>
 
 #define SKIPKEY 4
-
+#define NOMKEY 0
 class MenuWindow : public QWidget
 {
 public:
@@ -16,9 +16,11 @@ public:
     QGraphicsPixmapItem *idSuccessImage;
     QGraphicsPixmapItem *iderrorImage;
     QFont idfont;
-    int keymode;
+    QString idStr;
+    int keymode,ver;
     void addLoginNum(int num);
-    int idNum;
+    int idNums[6];
+    bool ableInput;
 
 protected:
     void keyPressEvent(QKeyEvent *);
@@ -29,6 +31,7 @@ private:
     void skipCheck(bool check);
     void idLogin();
     void startGame();
+    bool idCheck();
 };
 
 #endif // MENUWINDOW_H
