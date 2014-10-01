@@ -4,6 +4,8 @@
 #include <QFont>
 #include <QKeyEvent>
 
+#define SKIPKEY 4
+
 class MenuWindow : public QWidget
 {
 public:
@@ -23,7 +25,8 @@ protected:
 
 private:
     bool idLogincheck(int id);
-    void skippAllow();
+    void skipAllow();
+    void skipCheck(bool check);
     void idLogin();
     void startGame();
 };

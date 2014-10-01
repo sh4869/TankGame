@@ -35,13 +35,26 @@ bool MenuWindow::idLogincheck(int id){
 
 }
 
-void MenuWindow::skippAllow(){};
+void MenuWindow::skipAllow(){};
+void MenuWindow::skipCheck(bool check){};
 void MenuWindow::idLogin(){};
 void MenuWindow::startGame(){};
 
 
 void MenuWindow::keyPressEvent(QKeyEvent *event){
-    switch(event->key()){
-        case Qt::Key_Plus
+    if(keyMode == SKIPKEY){
+        if(event->key() == Qt::Key_Enter){
+            skipCheck(true);
+        }else if(event->key() == Qt::Key_Backspace){
+
+        }
+    }
+    else{
+        switch(event->key()){
+            case Qt::Key_Plus:
+                skipAllow();
+                break;
+
+        }
     }
 }
