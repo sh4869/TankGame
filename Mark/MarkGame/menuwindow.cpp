@@ -2,9 +2,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QLayout>
+#include <QKeyEvent>
 
 MenuWindow::MenuWindow()
 {
+    idNum = 0;
     menuScene = new QGraphicsScene(0,0,1024,768);
 
     inputidStr = new QGraphicsTextItem();
@@ -25,4 +27,21 @@ MenuWindow::MenuWindow()
     setLayout(menuLayout);
 }
 
+void MenuWindow::addLoginNum(int num){
 
+}
+
+bool MenuWindow::idLogincheck(int id){
+
+}
+
+void MenuWindow::skippAllow(){};
+void MenuWindow::idLogin(){};
+void MenuWindow::startGame(){};
+
+
+void MenuWindow::keyPressEvent(QKeyEvent *event){
+    switch(event->key()){
+        case Qt::Key_Plus
+    }
+}

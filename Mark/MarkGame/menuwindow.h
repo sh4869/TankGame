@@ -2,6 +2,7 @@
 #define MENUWINDOW_H
 #include <QGraphicsView>
 #include <QFont>
+#include <QKeyEvent>
 
 class MenuWindow : public QWidget
 {
@@ -14,7 +15,11 @@ public:
     QGraphicsPixmapItem *iderrorImage;
     QFont idfont;
     int keymode;
-    void startLogin();
+    void addLoginNum(int num);
+    int idNum;
+
+protected:
+    void keyPressEvent(QKeyEvent *);
 
 private:
     bool idLogincheck(int id);
