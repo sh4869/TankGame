@@ -6,15 +6,19 @@
 
 #define SKIPKEY 4
 #define NOMKEY 0
+
 class MenuWindow : public QWidget
 {
+    Q_OBJECT
 public:
     MenuWindow();
     QGraphicsScene *menuScene;
     QGraphicsTextItem *inputidStr;
-    QGraphicsPixmapItem *skkipAllowImage;
-    QGraphicsPixmapItem *idSuccessImage;
-    QGraphicsPixmapItem *iderrorImage;
+    QGraphicsPixmapItem *skipAllowImage;
+    QGraphicsPixmapItem *successImage;
+    QGraphicsPixmapItem *errorImage;
+    QTimer *errorDeleteTimer;
+
     QFont idfont;
     QString idStr;
     int keymode,ver;
@@ -26,12 +30,13 @@ protected:
     void keyPressEvent(QKeyEvent *);
 
 private:
-    bool idLogincheck(int id);
+    bool idCheck();
     void skipAllow();
     void skipCheck(bool check);
     void idLogin();
     void startGame();
-    bool idCheck();
+private slots:
+    void errorDelete();
 };
 
 #endif // MENUWINDOW_H

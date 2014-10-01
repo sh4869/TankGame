@@ -3,8 +3,9 @@
 #include <QGraphicsItem>
 #include <QLayout>
 #include <QKeyEvent>
+#include <QtWidgets>
 
-MenuWindow::MenuWindow()
+MenuWindow::MenuWindow() : QWidget(0)
 {
 
     keymode = NOMKEY;
@@ -31,36 +32,87 @@ MenuWindow::MenuWindow()
 
 void MenuWindow::addLoginNum(int num){
     if(num == -1){
-        ver--;
-        idStr = idStr.left(ver-1);
+        idStr = "";
         inputidStr->setPlainText(idStr);
-        if(ver < 5){
-            ableInput = true;
-        }
-        if(ver < 1){
-            ver = 0;
-        }
-    }else if(ableInput == true){
-        idStr += QString::number(num);
-        idNums[ver] = num;
-        inputidStr->setPlainText(idStr);
-        ver++;
+        ver = 0;
+        ableInput = true;
+    }else{
         if(ver > 5){
             ableInput = false;
         }
-    }else{
-        /* beep warning music */
+        if(ableInput == true){
+            idStr += QString::number(num);
+            idNums[ver] = num;
+            inputidStr->setPlainText(idStr);
+            ver++;
+        }else{
+            /* beep warning music */
+        }
     }
 }
 
-bool MenuWindow::idLogincheck(int id){
-
+bool MenuWindow::idCheck(){
+    int i,checkNum = 0;
+    for(i=0;i<5;i++){
+        checkNum += idNums[i];
+    }
+    if(checkNum / 7 == idNums[5]) return true;
+    return false;
 }
 
-void MenuWindow::skipAllow(){};
-void MenuWindow::skipCheck(bool check){};
-void MenuWindow::idLogin(){};
-void MenuWindow::startGame(){};
+
+void MenuWindow::skipAllow(){
+    keymode = SKIPKEY;
+    skipAllowImage = new QGraphicsPixmapItem(QPixmap(":/material/kanking.png"));
+    skipAllowImage->setPos(200,200);
+    menuScene->addItem(skipAllowImage);
+    ver = 0;
+    idStr = "";
+    inputidStr->setPlainText(idStr);
+};
+
+void MenuWindow::skipCheck(bool check){
+    menuScene->removeItem(skipAllowImage);
+    keymode = NOMKEY;
+    if(check == true){
+        startGame();
+        fprintf(stderr,"skip Allow\n");
+    }else{
+        fprintf(stderr,"Don't skip\n");
+    }
+};
+
+void MenuWindow::idLogin(){
+    if(ver == 6){
+        if(idCheck() == true){
+            startGame();
+            fprintf(stderr,"OK\n");
+        }else{
+            fprintf(stderr,"Bad\n");
+            int loop;
+            for(loop=0;loop<6;loop++) idNums[loop] = 0;
+            idStr = "";
+            inputidStr->setPlainText(idStr);
+            errorImage = new QGraphicsPixmapItem(QPixmap(":/material/kandokuro.png"));
+            errorImage->setPos(200,200);
+            menuScene->addItem(errorImage);
+            errorDeleteTimer = new QTimer(this);
+            QObject::connect(errorDeleteTimer,SIGNAL(timeout()),SLOT(errorDelete()));
+            errorDeleteTimer->start(1*2000);
+            ver =  0;
+            ableInput = true;
+        }
+    }
+}
+
+void MenuWindow::errorDelete(){
+    menuScene->removeItem(errorImage);
+    errorDeleteTimer->stop();
+}
+
+void MenuWindow::startGame(){
+
+};
 
 
 void MenuWindow::keyPressEvent(QKeyEvent *event){
@@ -68,7 +120,7 @@ void MenuWindow::keyPressEvent(QKeyEvent *event){
         if(event->key() == Qt::Key_Enter){
             skipCheck(true);
         }else if(event->key() == Qt::Key_Backspace){
-
+            skipCheck(false);
         }
     }
     else{
@@ -109,7 +161,10 @@ void MenuWindow::keyPressEvent(QKeyEvent *event){
         case Qt::Key_Backspace:
             addLoginNum(-1);
             break;
-
+        case Qt::Key_Enter:
+            fprintf(stderr,"Enter\n");
+            idLogin();
+            break;
 
         }
     }
