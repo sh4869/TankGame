@@ -23,18 +23,23 @@ public:
     QString idStr;
     int keymode,ver;
     void addLoginNum(int num);
+    void skipAllow();
+    void skipCheck(bool check);
+    void idLogin();
+    void resetMenu();
     int idNums[6];
+    int idNum;
     bool ableInput;
 
 protected:
     void keyPressEvent(QKeyEvent *);
 
+signals:
+    void startGame();
+
 private:
     bool idCheck();
-    void skipAllow();
-    void skipCheck(bool check);
-    void idLogin();
-    void startGame();
+
 private slots:
     void errorDelete();
 };

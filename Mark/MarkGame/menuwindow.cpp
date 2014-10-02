@@ -4,12 +4,14 @@
 #include <QLayout>
 #include <QKeyEvent>
 #include <QtWidgets>
+#include <QDebug>
 
 MenuWindow::MenuWindow() : QWidget(0)
 {
 
     keymode = NOMKEY;
     ver = 0;
+    idNum = 0;
     menuScene = new QGraphicsScene(0,0,1024,768);
 
     inputidStr = new QGraphicsTextItem();
@@ -28,6 +30,14 @@ MenuWindow::MenuWindow() : QWidget(0)
     QVBoxLayout *menuLayout = new QVBoxLayout();
     menuLayout->addWidget(menuView);
     setLayout(menuLayout);
+}
+
+void MenuWindow::resetMenu(){
+    idNum = 0;
+    ver = 0;
+    inputidStr->setPlainText("");
+    idStr = "";
+    ableInput = true;
 }
 
 void MenuWindow::addLoginNum(int num){
@@ -75,7 +85,7 @@ void MenuWindow::skipCheck(bool check){
     menuScene->removeItem(skipAllowImage);
     keymode = NOMKEY;
     if(check == true){
-        startGame();
+        emit startGame();
         fprintf(stderr,"skip Allow\n");
     }else{
         fprintf(stderr,"Don't skip\n");
@@ -85,7 +95,8 @@ void MenuWindow::skipCheck(bool check){
 void MenuWindow::idLogin(){
     if(ver == 6){
         if(idCheck() == true){
-            startGame();
+            idNum = idStr.toInt();
+            emit startGame();
             fprintf(stderr,"OK\n");
         }else{
             fprintf(stderr,"Bad\n");
@@ -109,11 +120,6 @@ void MenuWindow::errorDelete(){
     menuScene->removeItem(errorImage);
     errorDeleteTimer->stop();
 }
-
-void MenuWindow::startGame(){
-
-};
-
 
 void MenuWindow::keyPressEvent(QKeyEvent *event){
     if(keymode == SKIPKEY){

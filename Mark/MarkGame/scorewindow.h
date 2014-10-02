@@ -23,12 +23,13 @@ public:
 
     //Create update Top widget
     QGraphicsPixmapItem *topImage;
-
+    void changeScore(int score,int id);
     int topnum;
 
 public slots:
     void deleteTopImage();
-    void changeScore(int score,int id);
+
+private:
     void updateTop();
 
 protected:

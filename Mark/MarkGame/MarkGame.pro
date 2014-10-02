@@ -10,17 +10,17 @@ INCLUDEPATH += .
 
 SOURCES += main.cpp\
         markgame.cpp \
-    mainwindow.cpp \
     scorewindow.cpp \
-    menuwindow.cpp
+    menuwindow.cpp \
+    gamemainwindow.cpp
 
 HEADERS  += markgame.h \
     score.h \
     MovableGraphicsPixmapItem.h \
     MarkgamePrivate.h \
-    mainwindow.h \
     scorewindow.h \
-    menuwindow.h
+    menuwindow.h \
+    gamemainwindow.h
 
 RESOURCES += \
     markgame.qrc
