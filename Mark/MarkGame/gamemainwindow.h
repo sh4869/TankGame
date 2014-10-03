@@ -32,7 +32,7 @@ protected:
 
 private:
     int keymode;
-    void backMenu();
+    void setMenu();
 };
 
 #endif // GAMEMAINWINDOW_H

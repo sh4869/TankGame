@@ -209,7 +209,6 @@ void Markgame::updatetime(){
             leavetimemoji[j]=(leavetimecpy/jou(timeketa-j-1))+'0';
             timepre=leavetimemoji[j]-'0';
             leavetimecpy=leavetimecpy-timepre*jou(timeketa-j-1);
-            fprintf(stderr,"timemoji = %c \n",leavetimemoji[j]);
         }
     }else{
         for(j=0;j<sizeof(leavetimemoji);j++) leavetimemoji[j]=NULL;

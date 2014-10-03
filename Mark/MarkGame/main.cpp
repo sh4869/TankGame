@@ -3,26 +3,18 @@
 #include "menuwindow.h"
 #include "gamemainwindow.h"
 #include <QApplication>
+#include <QSql>
+#include <QtSql>
+#include <QtSql/QtSql>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    /*
-    Markgame *markgame = new Markgame();
-	markgame->move(0 , 0);//
-	markgame->resize(1024 , 768);//
-    markgame->show();
+    GameMainWindow *mainWindow = new GameMainWindow();
+    mainWindow->show();
 
-    ScoreWindow *scoreWindow = new ScoreWindow();
-	scoreWindow->move(0,0);
-	scoreWindow->resize(1024,768);
-    scoreWindow->show();
+    return a.exec();
 
-    MenuWindow *menuWindow = new MenuWindow();
-    menuWindow->show();
-   */
-   GameMainWindow *mainWindow = new GameMainWindow();
-   mainWindow->show();
-   return a.exec();
+
 }
