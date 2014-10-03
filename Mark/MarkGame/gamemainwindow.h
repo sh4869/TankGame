@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QKeyEvent>
+#include <QMultimedia>
 #include "menuwindow.h"
 #include "markgame.h"
 #include "scorewindow.h"
@@ -32,7 +33,14 @@ protected:
 
 private:
     int keymode;
+    QMediaPlayer *menuMusic;
+    QMediaPlayer *gameMusic;
+    QMediaPlayer *scoreMusic;
+    QMediaPlaylist *menuplaylist;
+    QMediaPlaylist *gameplaylist;
+    QMediaPlaylist *scoreplaylist;
     void setMenu();
+    void setMusic();
 };
 
 #endif // GAMEMAINWINDOW_H

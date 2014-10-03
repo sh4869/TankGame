@@ -1,36 +1,67 @@
 #include "gamemainwindow.h"
 #include <QMainWindow>
+#include <QtWidgets>
+#include <QPixmap>
+#include <QMediaPlaylist>
 
 GameMainWindow::GameMainWindow() : QMainWindow(0)
 {
+    setMusic();
     setMenu();
 }
 
+void GameMainWindow::setMusic(){
+    menuMusic = new QMediaPlayer();
+    menuplaylist = new QMediaPlaylist();
+    menuplaylist->addMedia(QUrl("qrc:///material/menu.mp3"));
+    menuMusic->setPlaylist(menuplaylist);
+    menuplaylist->setCurrentIndex(0);
+
+    gameMusic = new QMediaPlayer();
+    gameplaylist = new QMediaPlaylist();
+    gameplaylist->addMedia(QUrl("qrc:///material/game.mp3"));
+    gameMusic->setPlaylist(gameplaylist);
+    gameMusic->setVolume(15);
+    gameplaylist->setCurrentIndex(0);
+
+    scoreMusic = new QMediaPlayer();
+    scoreplaylist = new QMediaPlaylist();
+    scoreplaylist->addMedia(QUrl("qrc:///material/score.mp3"));
+    scoreMusic->setPlaylist(scoreplaylist);
+    scoreplaylist->setCurrentIndex(0);
+}
+
 void GameMainWindow::setGameWindow(){
+    menuMusic->stop();
+    gameMusic->play();
     markgame = new Markgame();
-    fprintf(stderr,"GAME\n");
     QObject::connect(markgame,SIGNAL(finishGame()),this,SLOT(showResult()));
     setCentralWidget(markgame);
-    markgame->startgame(menuWindow->idNum);
+    markgame->startgame();
     keymode = GAMEKEY;
+    fprintf(stderr,"GAME\n");
 }
 
 void GameMainWindow::showResult(){
+    gameMusic->stop();
+    scoreMusic->play();
     scoreWindow = new ScoreWindow();
     setCentralWidget(scoreWindow);
     fprintf(stderr,"Score\n");
-    scoreWindow->changeScore(markgame->score,markgame->id);
+    scoreWindow->changeScore(markgame->score);
     keymode = SCOREKEY;
     markgame->score = 0;
-    markgame->id = 0;
 }
 
 void GameMainWindow::setMenu(){
+    scoreMusic->stop();
+    menuMusic->play();
     keymode = MENUKEY;
-    menuWindow = new MenuWindow();
+    QLabel *imageLabel = new QLabel();
+    imageLabel->setPixmap(QPixmap(":/material/menu.png"));
     fprintf(stderr,"Menu\n");
-    QObject::connect(menuWindow,SIGNAL(startGame()),this,SLOT(setGameWindow()));
-    setCentralWidget(menuWindow);
+    setCentralWidget(imageLabel);
+    this->resize(1024,768);
 }
 
 void GameMainWindow::keyPressEvent(QKeyEvent *event){
@@ -38,21 +69,8 @@ void GameMainWindow::keyPressEvent(QKeyEvent *event){
 
     /* MenuWindow Keyboard Focus*/
     case MENUKEY:
-        if(event->key() >  0x29 && event->key() < 0x40){
-            menuWindow->addLoginNum(event->key() - 0x30);
-            fprintf(stderr,"%d",event->key());
-        }
-        switch(event->key()){
-        case Qt::Key_Plus:
-            menuWindow->skipAllow();
-            keymode = SKIPKEY;
-            break;
-        case Qt::Key_Backspace:
-            menuWindow->addLoginNum(-1);
-            break;
-        case Qt::Key_Enter:
-            menuWindow->idLogin();
-            break;
+        if(event->key() == Qt::Key_C){
+            setGameWindow();
         }
         break;
     case GAMEKEY:
@@ -64,7 +82,7 @@ void GameMainWindow::keyPressEvent(QKeyEvent *event){
         }
         break;
     case SCOREKEY:
-        if(event->key() == Qt::Key_Enter){
+        if(event->key() == Qt::Key_Space){
             setMenu();
         }
         break;

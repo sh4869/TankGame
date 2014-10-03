@@ -69,7 +69,6 @@ Markgame::Markgame()
     QObject::connect(timer,SIGNAL(timeout()),SLOT(updatetime()));
     // timer->start(1*1000);
     i=0;
-    id = 0;
     score = 0;
     pointAddAble = false;
     leavetime=TIME;
@@ -81,8 +80,7 @@ Markgame::~Markgame()
 {
     delete d_ptr;
 }
-void Markgame::startgame(int idnum){
-    id = idnum;
+void Markgame::startgame(){
     starttext = new QGraphicsTextItem();
     font = starttext->font();
     font.setPointSize(150);
@@ -125,6 +123,13 @@ void Markgame::gamefinish()
     tellfinish->setFont(font);
     graphicsScene->addItem(tellfinish);
     fprintf(stderr,"gamefinish\n");
+    finishTimer = new QTimer();
+    QObject::connect(finishTimer,SIGNAL(timeout()),this,SLOT(moveToScore()));
+    finishTimer->start(1*5000);
+}
+
+void Markgame::moveToScore(){
+    finishTimer->stop();
     emit finishGame();
 }
 
@@ -132,7 +137,7 @@ void Markgame::hitBall(int marknum){
     scoreCalcution(marknum);
     player = new QMediaPlayer;
     player->setMedia(QUrl("qrc:///material/bakuhatu.wav"));
-    player->setVolume(50);
+    player->setVolume(80);
     player->play();
 }
 
@@ -227,7 +232,7 @@ void Markgame::gameRestart(){
     timecount->setPlainText("60");
     pointtext->setPlainText("0");
     graphicsScene->removeItem(tellfinish);
-    startgame(id);
+    startgame();
 }
 
 MovableGraphicsPixmapItem* Markgame::createImageItem(const QString& pixmapFileName)
@@ -244,32 +249,3 @@ QPropertyAnimation* Markgame::createImageAnimation( MovableGraphicsPixmapItem* i
     imageAnimation->setStartValue(ImagePoint);
     return imageAnimation;
 }
-void Markgame::keyPressEvent(QKeyEvent *event)
-{
-    switch (event->key())  {
-    case 49:
-        hitBall(1);
-        break;
-    case 50:
-        hitBall(2);
-        break;
-    case 51:
-        hitBall(3);
-        break;
-    case 52:
-        hitBall(4);
-        break;
-    case 53:
-        hitBall(5);
-        break;
-    case 54:
-        hitBall(6);
-        break;
-    case Qt::Key_Escape:
-        gameRestart();
-        break;
-    default:
-        break;
-    }
-}
-

@@ -43,16 +43,14 @@ public:
     QTimer *starttimer;
     QTimer *waittime;
     QTimer *deletetimer;
+    QTimer *finishTimer;
     QFont font;
     QMediaPlayer *player;
     QString strscore;
-    int id,score;
-    void startgame(int idnum);
+    int score;
+    void startgame();
     void hitBall(int marknum);
     void gameRestart();
-
-protected:
-    void keyPressEvent(QKeyEvent *);
 
 private:
     MarkgamePrivate* d_ptr;
@@ -71,6 +69,7 @@ private slots:
     void startTime();
     void removetext();
     void restartPointAdd();
+    void moveToScore();
 
 signals:
     void finishGame();

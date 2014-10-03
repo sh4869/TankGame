@@ -5,5 +5,11 @@
         <file>material/kangazou.png</file>
         <file>material/kansilver.png</file>
         <file>material/bakuhatu.wav</file>
+        <file>material/menu.mp3</file>
+        <file>material/score.mp3</file>
+        <file>material/game.mp3</file>
+        <file>material/top.mp3</file>
+        <file>material/menu.png</file>
+        <file>material/top.png</file>
     </qresource>
 </RCC>

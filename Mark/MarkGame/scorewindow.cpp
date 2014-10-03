@@ -19,14 +19,6 @@ ScoreWindow::ScoreWindow() : QWidget(0)
     scoreText->setDefaultTextColor(Qt::yellow);
     scoreText->setFont(scorefont);
 
-    userID = new QGraphicsTextItem();
-    userIDfont = userID->font();
-    userIDfont.setPointSize(70);
-
-    userID->setPlainText("Guest");
-    userID->setPos(100,20);
-    userID->setDefaultTextColor(Qt::red);
-    userID->setFont(userIDfont);
 
     topScore = new QGraphicsTextItem();
     topfont = topScore->font();
@@ -37,7 +29,6 @@ ScoreWindow::ScoreWindow() : QWidget(0)
     topScore->setFont(topfont);
 
 
-    scoreScene->addItem(userID);
     scoreScene->addItem(topScore);
     scoreScene->addItem(scoreText);
 
@@ -48,13 +39,9 @@ ScoreWindow::ScoreWindow() : QWidget(0)
     setLayout(scoreLayout);
     //changeScore(133,20);
 }
-void ScoreWindow::changeScore(int score,int id){
+void ScoreWindow::changeScore(int score){
     fprintf(stderr,"%d",score);
     scoreText->setPlainText(QString::number(score));
-    if(id != 0){
-        QString *comment = new QString("ID:" + QString::number(id) + "'s sore");
-        userID->setPlainText(*comment);
-    }
     if(score > topnum){
         topnum = score;
         updateTop();
@@ -63,12 +50,12 @@ void ScoreWindow::changeScore(int score,int id){
 
 void ScoreWindow::updateTop(){
     topScore->setPlainText("topScore: " + QString::number(topnum));
-    topImage = new QGraphicsPixmapItem(QPixmap(":/material/kangazou.png"));
-    topImage->setPos(300,300);
+    topImage = new QGraphicsPixmapItem(QPixmap(":/material/top.png"));
+    topImage->setPos(200,100);
     scoreScene->addItem(topImage);
     topDeleteTime = new QTimer(this);
     QObject::connect(topDeleteTime,SIGNAL(timeout()),this,SLOT(deleteTopImage()));
-    topDeleteTime->start(1*2000);
+    topDeleteTime->start(1*10000);
 }
 
 void ScoreWindow::deleteTopImage(){
