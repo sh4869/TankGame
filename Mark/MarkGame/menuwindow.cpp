@@ -12,6 +12,7 @@ MenuWindow::MenuWindow() : QWidget(0)
     keymode = NOMKEY;
     ver = 0;
     idNum = 0;
+    ableInput = true;
     menuScene = new QGraphicsScene(0,0,1024,768);
 
     inputidStr = new QGraphicsTextItem();
@@ -20,7 +21,7 @@ MenuWindow::MenuWindow() : QWidget(0)
     idfont.setPointSize(60);
     idfont.setBold(true);
     inputidStr->setPos(100,300);
-    inputidStr->setPlainText("Please Input Your ID!");
+    inputidStr->setPlainText("");
     inputidStr->setDefaultTextColor(Qt::blue);
     inputidStr->setFont(idfont);
 
@@ -89,6 +90,7 @@ void MenuWindow::skipCheck(bool check){
         fprintf(stderr,"skip Allow\n");
     }else{
         fprintf(stderr,"Don't skip\n");
+        ableInput = true;
     }
 };
 

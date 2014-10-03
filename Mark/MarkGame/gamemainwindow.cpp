@@ -3,18 +3,12 @@
 
 GameMainWindow::GameMainWindow() : QMainWindow(0)
 {
-    /*
-    keymode = MENUKEY;
-    menuWindow = new MenuWindow();
-    markgame = new Markgame();
-    setCentralWidget(menuWindow);
-    QObject::connect(menuWindow,SIGNAL(startGame()),this,SLOT(setGameWindow()));
-    */
     setMenu();
 }
 
 void GameMainWindow::setGameWindow(){
     markgame = new Markgame();
+    fprintf(stderr,"GAME\n");
     QObject::connect(markgame,SIGNAL(finishGame()),this,SLOT(showResult()));
     setCentralWidget(markgame);
     markgame->startgame(menuWindow->idNum);
@@ -24,6 +18,7 @@ void GameMainWindow::setGameWindow(){
 void GameMainWindow::showResult(){
     scoreWindow = new ScoreWindow();
     setCentralWidget(scoreWindow);
+    fprintf(stderr,"Score\n");
     scoreWindow->changeScore(markgame->score,markgame->id);
     keymode = SCOREKEY;
     markgame->score = 0;
@@ -33,7 +28,6 @@ void GameMainWindow::showResult(){
 void GameMainWindow::setMenu(){
     keymode = MENUKEY;
     menuWindow = new MenuWindow();
-    //menuWindow->resetMenu();
     fprintf(stderr,"Menu\n");
     QObject::connect(menuWindow,SIGNAL(startGame()),this,SLOT(setGameWindow()));
     setCentralWidget(menuWindow);
@@ -62,9 +56,10 @@ void GameMainWindow::keyPressEvent(QKeyEvent *event){
         }
         break;
     case GAMEKEY:
-        if(event->key() > 0x29 && event->key() < 0x37){
-            markgame->hitBall(event->key() - 0x30);
-        }else if(event->key() == Qt::Key_Minus){
+        if(event->key() > 64 && event->key() < 71){
+            fprintf(stderr,"%d",event->key());
+            markgame->hitBall(event->key() - 63);
+        }else if(event->key() == Qt::Key_Asterisk){
             markgame->gamefinish();
         }
         break;
