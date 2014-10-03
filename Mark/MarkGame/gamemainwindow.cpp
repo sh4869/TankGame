@@ -69,7 +69,7 @@ void GameMainWindow::keyPressEvent(QKeyEvent *event){
 
     /* MenuWindow Keyboard Focus*/
     case MENUKEY:
-        if(event->key() == Qt::Key_C){
+        if(event->key() == Qt::Key_Enter){
             setGameWindow();
         }
         break;
@@ -82,16 +82,8 @@ void GameMainWindow::keyPressEvent(QKeyEvent *event){
         }
         break;
     case SCOREKEY:
-        if(event->key() == Qt::Key_Space){
-            setMenu();
-        }
-        break;
-    case SKIPKEY:
         if(event->key() == Qt::Key_Enter){
-            menuWindow->skipCheck(true);
-        }else if(event->key() == Qt::Key_Backspace){
-            menuWindow->skipCheck(false);
-            keymode = MENUKEY;
+            setMenu();
         }
         break;
     }
