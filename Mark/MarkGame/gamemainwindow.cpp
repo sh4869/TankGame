@@ -6,6 +6,7 @@
 
 GameMainWindow::GameMainWindow() : QMainWindow(0)
 {
+    topscre = 0;
     setMusic();
     setMenu();
 }
@@ -43,6 +44,7 @@ void GameMainWindow::setGameWindow(){
 }
 
 void GameMainWindow::showResult(){
+
     gameMusic->stop();
     scoreMusic->play();
     scoreWindow = new ScoreWindow();

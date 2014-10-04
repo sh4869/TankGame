@@ -7,7 +7,7 @@
 ScoreWindow::ScoreWindow() : QWidget(0)
 {
     topnum = 0;
-
+    nowScore = 0;
     scoreScene = new QGraphicsScene(0,0,1024,768);
     scoreText = new QGraphicsTextItem();
     scorefont = scoreText->font();
@@ -23,7 +23,7 @@ ScoreWindow::ScoreWindow() : QWidget(0)
     topScore = new QGraphicsTextItem();
     topfont = topScore->font();
     topfont.setPointSize(50);
-    topScore->setPlainText("topScore" + QString::number(topnum));
+    topScore->setPlainText("");
     topScore->setPos(400,600);
     topScore->setDefaultTextColor(Qt::green);
     topScore->setFont(topfont);
@@ -40,25 +40,7 @@ ScoreWindow::ScoreWindow() : QWidget(0)
     //changeScore(133,20);
 }
 void ScoreWindow::changeScore(int score){
+    nowScore = score;
     fprintf(stderr,"%d",score);
     scoreText->setPlainText(QString::number(score));
-    if(score > topnum){
-        topnum = score;
-        updateTop();
-    }
-}
-
-void ScoreWindow::updateTop(){
-    topScore->setPlainText("topScore: " + QString::number(topnum));
-    topImage = new QGraphicsPixmapItem(QPixmap(":/material/top.png"));
-    topImage->setPos(200,100);
-    scoreScene->addItem(topImage);
-    topDeleteTime = new QTimer(this);
-    QObject::connect(topDeleteTime,SIGNAL(timeout()),this,SLOT(deleteTopImage()));
-    topDeleteTime->start(1*10000);
-}
-
-void ScoreWindow::deleteTopImage(){
-    scoreScene->removeItem(topImage);
-    topDeleteTime->stop();
 }

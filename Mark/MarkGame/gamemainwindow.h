@@ -33,6 +33,7 @@ protected:
 
 private:
     int keymode;
+    int topscre;
     QMediaPlayer *menuMusic;
     QMediaPlayer *gameMusic;
     QMediaPlayer *scoreMusic;

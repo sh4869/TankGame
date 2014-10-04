@@ -27,10 +27,10 @@ public:
     int topnum;
 
 public slots:
-    void deleteTopImage();
+
 
 private:
-    void updateTop();
+    int nowScore;
 
 protected:
 
