@@ -42,6 +42,13 @@ PINの説明
 * 2:左モーターに関するコントローラー
 * 3:砲台上下のサーボに関するコントローラー
 
-送信する文字列の形
 
-R(rm)-L(lm)-H(hm)-B(b1)(b2)(b3)
+## LICENSE
+
+MIT LICENSE
+
+## SPECIAL THANKS
+
+[@jyukusui](https://github.com/jyukusui)
+
+(c) 2014-2015 Kasai Nobuhiro
