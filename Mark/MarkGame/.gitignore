@@ -13,6 +13,9 @@
 *.dll
 *.dylib
 
+# binary
+*.out
+
 # Qt-es
 
 /.qmake.cache
