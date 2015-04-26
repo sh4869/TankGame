@@ -5,7 +5,7 @@
 QT += widgets gui core multimedia sql
 
 TEMPLATE = app
-TARGET = MarkGame
+TARGET = MarkGame.out
 INCLUDEPATH += .
 
 SOURCES += main.cpp\
